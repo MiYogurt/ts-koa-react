@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es5",
+        "allowJs": true,
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "jsx": "react",
+        "watch": true,
+        "typeRoots": ["typings"],
+        "lib": [
+            "es6",
+            "dom"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "src/server/assets",
+        "src/client",
+        "webpack.config.js"
+    ]
+}
