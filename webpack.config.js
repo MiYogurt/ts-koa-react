@@ -1,10 +1,15 @@
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports =  {
-    entry: path.resolve(__dirname , "src/client/index.tsx"),
+    entry: [
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        path.resolve(__dirname , "src/client/index.tsx")
+    ],
     output: {
         filename: "bundle.js",
-        path: path.resolve(__dirname, "src/server/assets/javascripts")
+        path: path.resolve(__dirname, "src/server/assets/javascripts"),
+        publicPath: '/assets/javascripts/'
     },
 
     devtool: "source-map",
@@ -15,7 +20,12 @@ module.exports =  {
 
     module: {
         rules: [
-            { test: /\.tsx?$/,include: [ path.resolve(__dirname, "src/client") ], use: "awesome-typescript-loader" },
+            { 
+                test: /\.tsx?$/,
+                include: [ path.resolve(__dirname, "src/client") ], 
+                exclude:[ path.resolve(__dirname, "src/server") ] , 
+                use: "awesome-typescript-loader" 
+            },
             { test: /\.js$/, enforce: "pre", use: "source-map-loader" }
         ]
     },
@@ -24,4 +34,8 @@ module.exports =  {
         "react": "React",
         "react-dom": "ReactDOM"
     },
+    plugins: [
+	    new webpack.HotModuleReplacementPlugin(),
+	    new webpack.NamedModulesPlugin()
+	]
 };
